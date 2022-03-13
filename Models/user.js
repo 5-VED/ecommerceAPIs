@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-
 const UserSchema = new Schema({
     firstName: {
         type: String,
@@ -13,27 +12,31 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         index: true,
-        unique: true
     },
     email: {
         type: String,
         required: true,
         unique: true
     },
-    hash_password: {
+    password: {
         type: String,
         required: true
+    },
+    isActive: {
+        type: Boolean
+    },
+    isDeleted: {
+        type: Boolean
     },
     role: {
         type: String,
         enum: ['user', 'admin'],
-        default: 'admin'
+        default: 'user'
     },
-    contactNumber: { type: String },
+    contactNumber: { type: String, required: true },
     profilePicture: { type: String },
 
 }, { timestamps: true });
 
 
-const user = model.UserSchema('users',UserSchema);
-module.exports = user;
+module.exports = model('users', UserSchema);;
