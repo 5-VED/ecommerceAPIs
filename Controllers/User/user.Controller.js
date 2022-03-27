@@ -25,7 +25,21 @@ exports.signup = async (req, res, next) => {
 }
 
 
-exports.signin = {
+exports.signin = (req, res) => {
+    const { password, email } = req.body
+    User.findOne({ email: email }).then(user => {
+        if (!user) return res.status(400).json({ Message: "Invalid Credentials" })
+        bcrypt.compare(password, user.password, (err, data) => {
+            if (err) {
+                return res.status(400).json({ Message: err })
+            }
+            if (data) {
+                return res.status(200).json({ msg: "Login Successfully" })
+            } else {
+                return res.status(400).json({ Message: "Invalid Credentials" })
+            }
+        })
+    })
 
 }
 
@@ -72,7 +86,7 @@ exports.deleteUser = async (req, res) => {
 }
 
 exports.updateUser = (req, res) => {
-    console.log("over here ins");
+
     User.findOneAndUpdate(
         { _id: req.params.id },
         {
@@ -89,7 +103,6 @@ exports.updateUser = (req, res) => {
                 return res.status(500).json({ msg: "Some Error Occured" })
             }
             else {
-                console.log("over here");
                 return res.status(200).json({ Message: "Data updated succesfully", user: req.body })
             }
         })
