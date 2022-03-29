@@ -38,5 +38,9 @@ const UserSchema = new Schema({
 
 }, { timestamps: true });
 
+UserSchema.virtual('fullName').get(function () {
+    return `${this.firstName} ${this.lastName}`
+})
+
 
 module.exports = model('users', UserSchema);;
