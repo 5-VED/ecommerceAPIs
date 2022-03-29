@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 // Initializing Passport
 app.use(passport.initialize());
 
-app.use('/api', require('./Routes/User/user.route'));
+app.use('/api', require('./Routes/User/user_route'));
+app.use('/api', require('./Routes/Category/category_route'));
 
 module.exports = app;
