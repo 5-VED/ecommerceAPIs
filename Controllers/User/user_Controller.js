@@ -21,7 +21,7 @@ exports.signup = async (req, res, next) => {
 
         if (user) {
             console.log(user);
-            return res.status(200).json({ message: "User was registered Succesfully" });
+            return res.status(201).json({ message: "User was registered Succesfully" });
         }
     } catch (err) {
         return res.status(500).json({ message: err });
@@ -30,11 +30,12 @@ exports.signup = async (req, res, next) => {
 
 exports.signin = (req, role, res) => {
     const { password, email } = req.body
-    User.findOne({ email: email }).then(user => {
+    User.findOne({ email: email }).then((user) => {
+
         if (!user) return res.status(400).json({ Message: "Invalid Credentials" })
 
         if (user.role !== role) {
-            return res.status(400).json({ Message: "Make sure you are logging in from right portal" })
+            return res.status(403).json({ Message: "Make sure you are logging in from right portal" })
         }
 
         bcrypt.compare(password, user.password, (err, data) => {
@@ -43,7 +44,7 @@ exports.signin = (req, role, res) => {
             }
 
             if (data) {
-                const token = jwt.sign({ _id: user._id }, SECRET, { expiresIn: '1h' })
+                const token = jwt.sign({ _id: user._id, role: user.role }, SECRET, { expiresIn: '1h' })
                 const { _id, firstName, lastName, email, role, fullName } = user
                 return res.status(200).json({
                     token, user: {

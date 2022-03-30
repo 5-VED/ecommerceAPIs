@@ -8,9 +8,9 @@ const passportManager = require('../../Middlewares/passport');
 
 router.post('/signup', userValidator, userController.signup);
 
-router.post('/signin',(req, res) => userController.signin(req, "user", res));
+router.post('/adminSignin', (req, res) => userController.signin(req, "admin", res));
 
-router.post('/signin', async (req, res) => userController.signin(req, "admin", res));
+router.post('/userSignin', (req, res) => userController.signin(req, "user", res));
 
 router.get('/allUsers', userController.getAllUsers);
 
