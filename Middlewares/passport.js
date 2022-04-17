@@ -31,7 +31,7 @@ class passportManager {
         return passport.initialize();
     }
 
-    
+
 }
 
 

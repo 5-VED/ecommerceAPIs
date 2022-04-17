@@ -22,6 +22,7 @@ exports.ifAdmin = (req, res, next) => {
     next();
 }
 
+
 //Ensures only User have access
 exports.ifUser = (req, res, next) => {
     if (req.user.role !== 'user') {
