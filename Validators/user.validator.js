@@ -30,8 +30,6 @@ const userValidator = (req, res, next) => {
 
     // Validating requset body against Joi Schema
     const { error, value } = schema.validate(body)
-    console.log("error===>", error);
-    console.log("value===>", value);
     if (error) {
         res.status(400).json({ message: error })
     } else {

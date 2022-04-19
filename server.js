@@ -2,7 +2,7 @@ const app = require('./app');
 const { DB, PORT } = require('./Config/index');
 const { success, error } = require('consola');
 const { connect } = require('mongoose');
-const logger = require('./lib/logger');
+
 
 const startApp = async () => {
     try {

@@ -2,7 +2,7 @@ const User = require('../../Models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const { SECRET } = require('../../Config/index');
-const passport = require('passport');
+
 
 exports.signup = async (req, res, next) => {
 
