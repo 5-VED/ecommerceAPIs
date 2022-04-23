@@ -43,4 +43,4 @@ UserSchema.virtual('fullName').get(function () {
 })
 
 
-module.exports = model('users', UserSchema);;
+module.exports = model('users', UserSchema);

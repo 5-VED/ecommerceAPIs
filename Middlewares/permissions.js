@@ -1,6 +1,10 @@
 const jwt = require('jsonwebtoken');
 const { SECRET } = require('../Config/index')
 
+
+/**
+ * Ensures if User is Authenticated
+ * */
 exports.isAuthenticated = (req, res, next) => {
     if (req.headers.authorization) {
         const token = req.headers.authorization.split(" ")[1];
@@ -14,7 +18,9 @@ exports.isAuthenticated = (req, res, next) => {
 }
 
 
-//Ensures only Admin have access    
+/**
+ * Ensures only Admin have access
+ */
 exports.ifAdmin = (req, res, next) => {
     if (req.user.role !== "admin") {
         return res.status(403).json({ Message: 'Admin Access Denied' });
@@ -22,13 +28,15 @@ exports.ifAdmin = (req, res, next) => {
     next();
 }
 
-
-//Ensures only User have access
+/**
+ * Ensures only User have access
+ */
 exports.ifUser = (req, res, next) => {
     if (req.user.role !== 'user') {
         return res.status(403).json({ Message: 'User Access Denied' });
     }
     next()
 }
+
 
 
